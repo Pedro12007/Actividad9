@@ -39,6 +39,30 @@ def delete_movies(name):
     else:
         print('No existe la película.\n')
 
+def statistics():
+    print(f'Hay {len(peliculas)} películas registradas.\n')
+
+    genres = {}
+    for i in range(len(peliculas)):
+        if not(peliculas[i][2] in genres):
+            genres[peliculas[i][2]] = 1
+        else:
+            genres[peliculas[i][2]] += 1
+    print('Géneros:')
+    for genre, frequency in genres.items():
+        print(f'{genre}: {frequency} películas')
+    print()
+    index = 0
+    for i in range(len(peliculas)):
+        oldest = peliculas[0][1]
+        if oldest > peliculas[i][1]:
+            oldest = peliculas[i][1]
+            index = i
+    print(f'La película más antigua es: {peliculas[index][0]}\n')
+
+
+
+
 while True:
     print('Opciones:')
     print('1. Agregar películas.')
@@ -77,7 +101,10 @@ while True:
                 print('No hay películas registradas.\n')
 
         case '5':
-            pass
+            if len(peliculas) > 0:
+                statistics()
+            else:
+                print('No hay películas registradas.\n')
 
         case '6':
             print('Saliendo del programa...')
