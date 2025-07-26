@@ -13,7 +13,7 @@ def add_movie(amount):
     for i in range(amount):
         title = input('Ingrese el título de la película: ')
         year = int_input_exception('el año de la película')
-        genre = input('Ingrese el género de la película: ').lower()
+        genre = input('Ingrese el género de la película: ').capitalize()
         print()
 
         movie_details = [title, year, genre]
@@ -27,6 +27,18 @@ def search_movies(movie_list):
             print(f'Película: {movie[0]}')
     print()
 
+def delete_movies(name):
+    list_length_1 = len(peliculas)
+    for i in range(len(peliculas)):
+        if name == peliculas[i][0]:
+            peliculas.pop(i)
+            break
+    list_length_2 = len(peliculas)
+    if list_length_1 > list_length_2:
+        print('Eliminación exitosa.\n')
+    else:
+        print('No existe la película.\n')
+
 while True:
     print('Opciones:')
     print('1. Agregar películas.')
@@ -37,10 +49,12 @@ while True:
     print('6. Salir del programa')
 
     option = input('Ingrese la opción que desea: ')
+    print()
 
     match option:
         case '1':
             movies_amount = int_input_exception('cuantas películas desea ingresar')
+            print()
             movies = add_movie(movies_amount)
             peliculas.extend(movies)
 
@@ -56,7 +70,11 @@ while True:
             search_movies(peliculas)
 
         case '4':
-            pass
+            if len(peliculas) > 0:
+                movie_name = input('Ingrese el nombre de la película: ')
+                delete_movies(movie_name)
+            else:
+                print('No hay películas registradas.\n')
 
         case '5':
             pass
